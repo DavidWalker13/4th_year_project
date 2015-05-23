@@ -1,0 +1,28 @@
+Acquire sensor libraries
+Split into multiple files
+Use fixed point calculations
+Main
+	Setup
+		Run initialize
+	Loop
+		Run IMU
+		Run Serial
+		Run PID
+		Detect launch flag
+		Detect apogee flag
+IMU
+	Read sensors
+	Construct rotation matrix
+	Update rotation matrix
+	Vertical velocity estimation
+Serial
+	Outputs data to serial
+Initialize 
+	Zero gyros
+PID
+	Roll
+	Pitch 
+	Yaw
+	Push values to servos
+
+	
