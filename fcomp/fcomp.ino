@@ -3,12 +3,33 @@
 #include <Wire.h> //The Wire library is used for I2C communication
 #include <I2Cdev.h>
 #include <MPU6050.h>
+#include <HMC5883L.h>
+#include <MS561101BA.h>
 
 MPU6050 accelgyro;
+HMC5883L mag;
+MS561101BA baro;
+#define MOVAVG_SIZE 32
+
+//Variables
+float gxscale = 1, gyscale = 1, gzscale = 1;
+int16_t gxoff =0, gyoff = 0, gzoff = 0;
+float axscale = 1, ayscale = 1, azscale = 1;
+int16_t axoff = 0, ayoff = 0, azoff = 0;
 
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
+int16_t mx, my, mz;
+float w[3];
+float a[3];
 uint32_t time_for_loop; //time for a loop
+
+//Baro stuff
+float movavg_buff[MOVAVG_SIZE];
+int movavg_i=0;
+
+const float sea_press = 1013.25;
+float press, temp, altitude;
 
 void setup() {
   // put your setup code here, to run once:
@@ -20,7 +41,7 @@ void loop() {
   uint32_t loop_start = micros();
   // put your main code here, to run repeatedly:
   IMU();
-  data_out();
+  //data_out();
   time_for_loop = micros()-loop_start;
   Serial.println(time_for_loop);
 
