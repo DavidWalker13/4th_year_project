@@ -1,3 +1,7 @@
+float R1[3][3] = { {1,0,0}, {0,1,0}, {0,0,1} }; ////rotation matrix 1
+float R2[3][3]; //rotation matrix 2
+
+
 void IMU() {
   // read raw accel/gyro measurements from device
   accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
@@ -24,6 +28,19 @@ void IMU() {
   w[0]= gxscale*(gx-gxoff);
   w[1]= gyscale*(gy-gyoff);
   w[2]= gzscale*(gz-gzoff);
+  
+   // update matrix
+  float time_for_loop_s=time_for_loop*1E-6;
+  float M[3][3] = {
+    {1.0, -w[2]*time_for_loop_s, w[1]*time_for_loop_s},
+    {w[2]*time_for_loop_s, 1.0, -w[0]*time_for_loop_s},
+    {-w[1]*time_for_loop_s, w[0]*time_for_loop_s, 1.0}
+  }; 
+   
+  Matrix.Multiply((float*)R1,(float*)M,3,3,3,(float*)R2); //R2 = R1 * M
+  Matrix.Copy((float*) R2, 3, 3, (float*) R1); // R1 = R2
+  //Renormalization of R
+  Matrix.NormalizeTay3x3((float*)R1); //remove errors so dot product doesn't go complex
 }
 
 float getAltitude(float press, float temp) {

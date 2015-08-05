@@ -17,6 +17,14 @@ void initialize() {
   mag.initialize();
   baro.init(MS561101BA_ADDR_CSB_LOW); 
   
+  //gyro set up
+  accelgyro.setRate(4);
+  accelgyro.setDLPFMode(1);
+  accelgyro.setFullScaleGyroRange(2);
+  
+  //accel setup
+  accelgyro.setFullScaleAccelRange(3);
+  
   // populate movavg_buff before starting loop
   for(int i=0; i<MOVAVG_SIZE; i++) {
     movavg_buff[i] = baro.getPressure(MS561101BA_OSR_4096);

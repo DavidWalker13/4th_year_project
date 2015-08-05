@@ -1,6 +1,7 @@
 
 //Libraries
 #include <Wire.h> //The Wire library is used for I2C communication
+#include <MatrixMath.h>
 #include <I2Cdev.h>
 #include <MPU6050.h>
 #include <HMC5883L.h>
@@ -12,9 +13,9 @@ MS561101BA baro;
 #define MOVAVG_SIZE 32
 
 //Variables
-float gxscale = 1, gyscale = 1, gzscale = 1;
+float gxscale =3.1416/(180*32.8), gyscale = 3.1416/(180*32.8), gzscale = 3.1416/(180*32.8);
 int16_t gxoff =0, gyoff = 0, gzoff = 0;
-float axscale = 1, ayscale = 1, azscale = 1;
+float axscale = 9.81/2048, ayscale = 9.81/2048, azscale = 9.81/2048;
 int16_t axoff = 0, ayoff = 0, azoff = 0;
 
 int16_t ax, ay, az;
@@ -41,7 +42,7 @@ void loop() {
   uint32_t loop_start = micros();
   // put your main code here, to run repeatedly:
   IMU();
-  //data_out();
+  data_out();
   time_for_loop = micros()-loop_start;
   Serial.println(time_for_loop);
 
