@@ -1,3 +1,4 @@
+
 void data_out(){ 
  //print_accel();
  //print_gyro();
@@ -34,12 +35,20 @@ void print_baro(){
 }
 
 void serialcubeout(float* M, int length){
-  for(int i=0; i<length; i++){
-      Serial.print(M[i]);
-      //serialFloatPrint(M[i]);
+  //function to send data to cube visualization
+  char cmd;
+  while(!Serial.available()) {
+    ; // do nothing until ready
+  }
+  cmd = Serial.read();
+  if(cmd == 'q'){
+    for(int i=0; i<length; i++){
+      serialFloatPrint(M[i]);
       Serial.print(",");
     }
+    Serial.print(time_for_loop);
     Serial.println("");
+  }
 }
 
 void serialFloatPrint(float f) {
