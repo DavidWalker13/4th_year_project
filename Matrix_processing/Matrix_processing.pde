@@ -68,15 +68,10 @@ void setup()
   myPort.clear();
   
   while (myPort.available() == 0) {
-   // myPort.write("v");
     myDelay(1000);
   }
-  
-  while (myPort.available() > 0) {
-   println(myPort.readStringUntil('\n'));
-    myDelay(1000);
-  }  
-  myPort.write("q");
+
+  //myPort.write("q");
   myPort.bufferUntil('\n');
   start=true;
 }
@@ -118,7 +113,7 @@ void serialEvent(Serial p) {
         }
       }
       // ask more data when burst completed
-        p.write("q");    
+       // p.write("q");         
     }
   }
 }
@@ -178,6 +173,7 @@ void drawCube() {
 
 
 void draw() {
+  //print("drawing");
   background(#000000);
   fill(#ffffff);
   textSize(20);
@@ -201,6 +197,7 @@ void draw() {
   
   drawCube();
   //myPort.write("q" + 1);
+  //serialEventX(myPort);
 }
 
 void MToquat(float [] m, float [] q){

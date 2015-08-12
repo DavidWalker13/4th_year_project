@@ -36,12 +36,12 @@ void print_baro(){
 
 void serialcubeout(float* M, int length){
   //function to send data to cube visualization
-  char cmd;
+  /*char cmd;
   while(!Serial.available()) {
     ; // do nothing until ready
   }
-  cmd = Serial.read();
-  if(cmd == 'q'){
+  cmd = Serial.read();*/
+  if(1==1){//cmd == 'q'
     for(int i=0; i<length; i++){
       serialFloatPrint(M[i]);
       Serial.print(",");
