@@ -8,10 +8,15 @@ void IMU() {
   
    // update matrix
   float time_for_loop_s=time_for_loop*1E-6;
+  float delta_theta[3];
+  delta_theta[0]=w[0]*time_for_loop_s;
+  delta_theta[1]=w[1]*time_for_loop_s;
+  delta_theta[2]=w[2]*time_for_loop_s;
+  
   float M[3][3] = {
-    {1.0, -w[2]*time_for_loop_s, w[1]*time_for_loop_s},
-    {w[2]*time_for_loop_s, 1.0, -w[0]*time_for_loop_s},
-    {-w[1]*time_for_loop_s, w[0]*time_for_loop_s, 1.0}
+    {1.0, -delta_theta[2], delta_theta[1]},
+    {delta_theta[2], 1.0, -delta_theta[0]},
+    {-delta_theta[1], delta_theta[0], 1.0}
   }; 
    
   Matrix.Multiply((float*)R1,(float*)M,3,3,3,(float*)R2); //R2 = R1 * M

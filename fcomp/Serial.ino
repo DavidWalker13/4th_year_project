@@ -4,7 +4,9 @@ void data_out(){
  //print_gyro();
  //print_mag();
  //print_baro();
- serialcubeout((float*) R1, 9);
+ float quat[4];
+ MToquat((float*) R1, quat);
+ serialcubeout(quat, 4);
 }
 
 void print_accel(){
@@ -64,5 +66,35 @@ void serialFloatPrint(float f) {
     
     Serial.print(c1);
     Serial.print(c2);
+  }
+}
+
+void MToquat(float* m, float* q){
+  float tr = m[0] + m[4] + m[8];
+  float S;
+  if (tr > 0) { 
+    S = sqrt(tr+1.0) * 2; // S=4*qw 
+    q[0] = 0.25 * S;
+    q[1] = (m[7] - m[5]) / S;
+    q[2] = (m[2] - m[6]) / S; 
+    q[3] = (m[3] - m[1]) / S; 
+  } else if ((m[0] > m[4])&&(m[0] > m[8])) { 
+    S = sqrt(1.0 + m[0] - m[4] - m[8]) * 2; // S=4*qx 
+    q[0] = (m[7] - m[5]) / S;
+    q[1] = 0.25 * S;
+    q[2] = (m[1] + m[3]) / S; 
+    q[3] = (m[2] + m[6]) / S; 
+  } else if (m[4] > m[8]) { 
+    S = sqrt(1.0 + m[4] - m[0] - m[8]) * 2; // S=4*qy
+    q[0] = (m[2] - m[6]) / S;
+    q[1] = (m[1] + m[3]) / S; 
+    q[2] = 0.25 * S;
+    q[3] = (m[5] + m[7]) / S; 
+  } else { 
+    S = sqrt(1.0 + m[8] - m[0] - m[4]) * 2; // S=4*qz
+    q[0] = (m[3] - m[1]) / S;
+    q[1] = (m[2] + m[6]) / S;
+    q[2] = (m[5] + m[7]) / S;
+    q[3] = 0.25 * S;
   }
 }
