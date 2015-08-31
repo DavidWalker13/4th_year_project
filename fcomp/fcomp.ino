@@ -10,7 +10,6 @@
 MPU6050 accelgyro;
 HMC5883L mag;
 MS561101BA baro;
-#define MOVAVG_SIZE 32
 
 //Variables
 float gxscale =3.1416/(180*32.8), gyscale = 3.1416/(180*32.8), gzscale = 3.1416/(180*32.8);
@@ -29,11 +28,7 @@ float m[3];
 uint32_t time_for_loop=0; //time for a loop
 
 //Baro stuff
-float movavg_buff[MOVAVG_SIZE];
-int movavg_i=0;
-
-const float sea_press = 1013.25;
-float pressure, temp, altitude, ground_pressure, alt_const;
+float pressure, ground_pressure, alt_const;
 
 void setup() {
   // put your setup code here, to run once:

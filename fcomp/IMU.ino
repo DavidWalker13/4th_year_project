@@ -37,15 +37,10 @@ void read_sensors(){
   // read raw accel/gyro measurements from device
   accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
  // mag.getHeading(&mx, &my, &mz);  
-  //get altitude
-  float temperature = baro.getTemperature(MS561101BA_OSR_4096);
-  if(temperature) {
-    temp = temperature;
-  }
- 
-  pressure = baro.getPressure(MS561101BA_OSR_4096);
-  if(pressure!=NULL) {
-    pushAvg(pressure);
+  //get pressure 
+  float pressure_reading = baro.getPressure(MS561101BA_OSR_4096);
+  if(pressure_reading!=NULL) {
+    pressure=pressure_reading;
   }
 }
   
@@ -64,19 +59,6 @@ void scale_values(){
   m[1]= myscale*(my-myoff);
   m[2]= mzscale*(mz-mzoff);
   */
-  pressure = getAvg(movavg_buff, MOVAVG_SIZE);
-  altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
+  //altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
 }
 
-void pushAvg(float val) {
-  movavg_buff[movavg_i] = val;
-  movavg_i = (movavg_i + 1) % MOVAVG_SIZE;
-}
-
-float getAvg(float * buff, int size) {
-  float sum = 0.0;
-  for(int i=0; i<size; i++) {
-    sum += buff[i];
-  }
-  return sum / size;
-}
