@@ -24,11 +24,19 @@ void initialize() {
   
   //accel setup
   accelgyro.setFullScaleAccelRange(3);
-  
   // populate movavg_buff before starting loop
   for(int i=0; i<MOVAVG_SIZE; i++) {
-    movavg_buff[i] = baro.getPressure(MS561101BA_OSR_4096);
+    pressure = baro.getPressure(MS561101BA_OSR_4096);
+    while(pressure==NULL) {
+      delay(10);
+      pressure = baro.getPressure(MS561101BA_OSR_4096);      
+    }
+    Serial.println(pressure);
+    movavg_buff[i] = pressure;
   }
+  
+  ground_pressure=getAvg(movavg_buff, MOVAVG_SIZE); //set pressure at ground level
+  alt_const=(287/9.8)*(273+baro.getTemperature(MS561101BA_OSR_4096));
   
   // verify connection
   Serial.println("Testing device connections...");

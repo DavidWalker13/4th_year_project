@@ -33,7 +33,7 @@ float movavg_buff[MOVAVG_SIZE];
 int movavg_i=0;
 
 const float sea_press = 1013.25;
-float press, temp, altitude;
+float pressure, temp, altitude, ground_pressure, alt_const;
 
 void setup() {
   // put your setup code here, to run once:

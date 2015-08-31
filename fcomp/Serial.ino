@@ -3,7 +3,7 @@ void data_out(){
  //print_accel();
  //print_gyro();
  //print_mag();
- //print_baro();
+ print_baro();
  float quat[4];
  MToquat((float*) R1, quat);
  serialcubeout(quat, 4);
@@ -32,7 +32,8 @@ void print_mag(){
 
 void print_baro(){
   Serial.print("baro:\t");
-  Serial.print(press); Serial.print("\t");
+  Serial.print(temp); Serial.print("\t");
+  Serial.print(pressure); Serial.print("\t");
   Serial.print(altitude); Serial.print("\t");
 }
 

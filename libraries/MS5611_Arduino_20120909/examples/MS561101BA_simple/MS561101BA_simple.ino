@@ -1,3 +1,4 @@
+
 /*
 MS561101BA_demo.pde - Example code for using the MS561101BA library.
 Displays temperature and pression readings from the sensor
@@ -30,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#include <DebugUtils.h>
 #include <MS561101BA.h>
 
+
 MS561101BA baro = MS561101BA();
 
 void setup() {
@@ -53,10 +55,9 @@ void loop() {
   Serial.print(" degC pres: ");
   while(pression == NULL) {
     pression = baro.getPressure(MS561101BA_OSR_4096);
-    //Serial.println(baro.lastTempConv);
-    //Serial.println(baro.lastPresConv);
-    //Serial.println("aaa");
   }
   Serial.print(pression);
   Serial.println(" mbar");
 }
+
+

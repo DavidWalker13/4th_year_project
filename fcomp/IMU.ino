@@ -25,25 +25,28 @@ void IMU() {
   Matrix.NormalizeTay3x3((float*)R1); //remove errors so dot product doesn't go complex
 }
 
-float getAltitude(float press, float temp) {
+float getAltitude(float pressure) {
   //return (1.0f - pow(press/101325.0f, 0.190295f)) * 4433000.0f;
-  return ((pow((sea_press / press), 1/5.257) - 1.0) * (temp + 273.15)) / 0.0065;
+  //return ((pow((sea_press / press), 1/5.257) - 1.0) * (temp + 273.15)) / 0.0065;
+  //return -alt_const*log(pressure/ground_pressure); //assume constant temperature
+  return alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure); //assume constant gradient
+  
 }
 
 void read_sensors(){
   // read raw accel/gyro measurements from device
   accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
- /* mag.getHeading(&mx, &my, &mz);  
+ // mag.getHeading(&mx, &my, &mz);  
   //get altitude
   float temperature = baro.getTemperature(MS561101BA_OSR_4096);
   if(temperature) {
     temp = temperature;
   }
-  
-  press = baro.getPressure(MS561101BA_OSR_4096);
-  if(press!=NULL) {
-    pushAvg(press);
-  }*/
+ 
+  pressure = baro.getPressure(MS561101BA_OSR_4096);
+  if(pressure!=NULL) {
+    pushAvg(pressure);
+  }
 }
   
   
@@ -60,9 +63,9 @@ void scale_values(){
   m[0]= mxscale*(mx-mxoff);
   m[1]= myscale*(my-myoff);
   m[2]= mzscale*(mz-mzoff);
-  
-  press = getAvg(movavg_buff, MOVAVG_SIZE);
-  altitude = getAltitude(press, temp);*/
+  */
+  pressure = getAvg(movavg_buff, MOVAVG_SIZE);
+  altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
 }
 
 void pushAvg(float val) {
