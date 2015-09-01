@@ -1,12 +1,16 @@
 
 void data_out(){ 
  //print_accel();
- //print_gyro();
+ print_gyro();
  //print_mag();
- print_baro();
- float quat[4];
- MToquat((float*) R1, quat);
- serialcubeout(quat, 4);
+ //print_baro();
+ if (millis()>30000){
+   //float quat[4];
+   //MToquat((float*) R1, quat);
+   //serialcubeout(quat, 4);
+   serialcubeout(R1, 9);
+   delay(1E9);
+ }
 }
 
 void print_accel(){
@@ -17,10 +21,12 @@ void print_accel(){
 }
 
 void print_gyro(){
-  Serial.print("g:\t");
-  Serial.print(w[0]); Serial.print("\t");
-  Serial.print(w[1]); Serial.print("\t");
-  Serial.println(w[2]);
+    for(int i=0; i<3; i++){
+    serialFloatPrint(w[i]);
+    Serial.print(",");
+  }
+  Serial.print(time_for_loop);
+  Serial.println("");
 }
 
 void print_mag(){
@@ -39,19 +45,12 @@ void print_baro(){
 
 void serialcubeout(float* M, int length){
   //function to send data to cube visualization
-  /*char cmd;
-  while(!Serial.available()) {
-    ; // do nothing until ready
+  for(int i=0; i<length; i++){
+    serialFloatPrint(M[i]);
+    Serial.print(",");
   }
-  cmd = Serial.read();*/
-  if(1==1){//cmd == 'q'
-    for(int i=0; i<length; i++){
-      serialFloatPrint(M[i]);
-      Serial.print(",");
-    }
-    Serial.print(time_for_loop);
-    Serial.println("");
-  }
+  Serial.print(time_for_loop);
+  Serial.println("");
 }
 
 void serialFloatPrint(float f) {
