@@ -1,3 +1,4 @@
+//Various data to be sent over the serial bus
 
 void data_out(){ 
  print_accel();
