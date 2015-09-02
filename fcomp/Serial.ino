@@ -1,23 +1,21 @@
 
 void data_out(){ 
- //print_accel();
+ print_accel();
  print_gyro();
  //print_mag();
- //print_baro();
- if (millis()>30000){
-   //float quat[4];
-   //MToquat((float*) R1, quat);
-   //serialcubeout(quat, 4);
-   serialcubeout(R1, 9);
-   delay(1E9);
- }
+ print_baro();
+ //float quat[4];
+ //MToquat((float*) R1, quat);
+ //serialcubeout(quat, 4);
+  Serial.print(time_for_loop);
+  Serial.println("");
 }
 
 void print_accel(){
-  Serial.print("a:\t");
-  Serial.print(a[0]); Serial.print("\t");
-  Serial.print(a[1]); Serial.print("\t");
-  Serial.println(a[2]); 
+  //Serial.print("a:\t");
+  Serial.print(a[0]); Serial.print(",");
+  Serial.print(a[1]); Serial.print(",");
+  Serial.print(a[2]); Serial.print(",");
 }
 
 void print_gyro(){
@@ -25,8 +23,6 @@ void print_gyro(){
     serialFloatPrint(w[i]);
     Serial.print(",");
   }
-  Serial.print(time_for_loop);
-  Serial.println("");
 }
 
 void print_mag(){
@@ -49,8 +45,6 @@ void serialcubeout(float* M, int length){
     serialFloatPrint(M[i]);
     Serial.print(",");
   }
-  Serial.print(time_for_loop);
-  Serial.println("");
 }
 
 void serialFloatPrint(float f) {

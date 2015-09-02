@@ -41,5 +41,12 @@ void loop() {
   // put your main code here, to run repeatedly:
   IMU();
   data_out();
+  set_loop_time(5000,loop_start);
   time_for_loop = micros()-loop_start;
+}
+
+void set_loop_time(uint16_t time, uint32_t loop_start){
+  while(micros()-loop_start < time){
+    delayMicroseconds(1);
+  }
 }

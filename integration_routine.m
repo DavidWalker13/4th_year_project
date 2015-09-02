@@ -15,9 +15,9 @@ for i=1:length(looptime)
     -delta_theta(2), delta_theta(1), 1.0 ]; 
    
   R2 = R1 * M;
-  R1 = R2;
-  %Renormalization of R
   
+  %Renormalization of R
+  R1 = Normalize_M(R2);
   
 end
 
