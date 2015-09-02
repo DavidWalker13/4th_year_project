@@ -5,7 +5,7 @@ float R2[3][3]; //rotation matrix 2
 void IMU() {
   read_sensors();
   scale_values();
-  //update_matrix();
+  update_matrix();
    
 }
 
