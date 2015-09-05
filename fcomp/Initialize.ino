@@ -41,6 +41,7 @@ void initialize() {
   Serial.println(mag.testConnection() ? "HMC5883L connection successful" : "HMC5883L connection failed");
 
   gyro_calibration();
+ 
   Serial.println("End setup");
 }
 

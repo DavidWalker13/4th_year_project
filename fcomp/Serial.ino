@@ -4,11 +4,11 @@ void data_out(){
  //print_gyro();
  //print_mag();
  //print_baro();
- float quat[4];
- MToquat((float*) R1, quat);
- serialcubeout(quat, 4);
- Serial.print(time_for_loop);
- Serial.println("");
+ //float quat[4];
+ //MToquat((float*) R1, quat);
+ //serialcubeout(quat, 4);
+ //Serial.print(time_for_loop);
+ //Serial.println("");
 }
 
 void print_accel(){
