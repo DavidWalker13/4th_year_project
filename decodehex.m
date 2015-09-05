@@ -18,7 +18,8 @@ function [ value ] = decodehex( inString )
       e=[inData1 inData2 inData3 inData4];
       e = uint8(e);
       value = typecast( e , 'single');
-  end
+  else
+      value = NaN;
 
 end
 
