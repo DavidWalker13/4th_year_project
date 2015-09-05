@@ -1,20 +1,19 @@
 float R1[3][3] = { {1,0,0}, {0,1,0}, {0,0,1} }; ////rotation matrix 1
+const float IdentityM[3][3] = { {1,0,0}, {0,1,0}, {0,0,1} }; //identity matrix
 float R2[3][3]; //rotation matrix 2
+float previous_pressure_reading=0, previous_pressure=0;
+uint8_t loop_no=1;
 
 
 void IMU() {
   read_sensors();
   scale_values();
-  update_matrix();
-   
-}
-
-float getAltitude(float pressure) {
-  //return (1.0f - pow(press/101325.0f, 0.190295f)) * 4433000.0f;
-  //return ((pow((sea_press / press), 1/5.257) - 1.0) * (temp + 273.15)) / 0.0065;
-  //return -alt_const*log(pressure/ground_pressure); //assume constant temperature
-  return alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure); //assume constant gradient
-  
+  //update_matrix();
+  if(launch_event==0 && launch_confirmed == false){
+    //reset matrix and ground pressure
+    //ground_pressure = pressure;
+    //Matrix.Copy((float*) IdentityM, 3, 3, (float*) R1); 
+  }
 }
 
 void read_sensors(){
@@ -23,9 +22,15 @@ void read_sensors(){
  // mag.getHeading(&mx, &my, &mz);  
   //get pressure 
   float pressure_reading = baro.getPressure(MS561101BA_OSR_4096);
-  if(pressure_reading!=NULL) {
-    pressure=pressure_reading;
+  if(pressure_reading != previous_pressure_reading){
+    pressure=0*pressure+1*pressure_reading; //low pass filter on pressure
+    previous_pressure_reading=pressure_reading;
+    vert_vel= 0.8*vert_vel + 0.2*alt_const*(previous_pressure-pressure)/(pressure*time_for_loop*loop_no*1E-6);
+    previous_pressure=pressure;
+    loop_no=1;
   }
+  else loop_no++;
+
 }
   
   
@@ -43,7 +48,8 @@ void scale_values(){
   m[1]= myscale*(my-myoff);
   m[2]= mzscale*(mz-mzoff);
   */
-  //altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
+  altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
+ 
 }
 
 void update_matrix(){

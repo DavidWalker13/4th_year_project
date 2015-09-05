@@ -1,14 +1,14 @@
 
 void data_out(){ 
- //print_accel();
- //print_gyro();
+ print_accel();
+ print_gyro();
  //print_mag();
- //print_baro();
+ print_baro();
  //float quat[4];
  //MToquat((float*) R1, quat);
  //serialcubeout(quat, 4);
- //Serial.print(time_for_loop);
- //Serial.println("");
+ Serial.print(time_for_loop);
+ Serial.println("");
 }
 
 void print_accel(){
@@ -37,6 +37,7 @@ void print_baro(){
   //Serial.print(temp); Serial.print("\t");
   Serial.print(pressure); Serial.print("\t");
   //Serial.print(altitude); Serial.print("\t");
+  //Serial.print(vert_vel); Serial.print("\t");
 }
 
 void serialcubeout(float* M, int length){
