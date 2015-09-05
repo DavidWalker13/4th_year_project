@@ -32,7 +32,7 @@ float pressure=1000, ground_pressure, alt_const, vert_vel, altitude;
 
 //events
 bool launch_confirmed=0, apogee=0, main_deploy=0;
-uint16_t launch_event = 0; //this is treated as an array of 16 bools
+uint64_t launch_event = 0; //this is treated as an array of 16 bools
 const uint16_t launch_detect_altitude = 50; // height gain required for a launch to be confirmed in meters
 uint8_t event_freq_divider=0; // 
 
@@ -50,7 +50,7 @@ void loop() {
   //PID();
   data_out();
   
-  if (event_freq_divider > 50){ 
+  if (event_freq_divider > 20){ 
     event_detection();
     event_freq_divider=1;
   }
