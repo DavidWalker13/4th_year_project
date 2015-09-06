@@ -16,7 +16,7 @@ void event_detection(){
     launch_confirmed = true;
     Serial.println("Launch confirmed");
   }
-  if(launch_event >= 32768 && launch_confirmed == false){
+  if(launch_event >= 0x8000000000000000 && launch_confirmed == false){ //if the left most digit of launch event is a 1 
     Serial.print("False launch detected at time: ");
     Serial.println(millis());
   }

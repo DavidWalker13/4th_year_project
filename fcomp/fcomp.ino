@@ -50,7 +50,7 @@ void loop() {
   //PID();
   data_out();
   
-  if (event_freq_divider > 20){ 
+  if (event_freq_divider > 10){ // event dectection occurs at 200/10Hz
     event_detection();
     event_freq_divider=1;
   }
