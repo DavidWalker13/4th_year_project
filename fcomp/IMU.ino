@@ -11,7 +11,7 @@ void IMU() {
   //update_matrix();
   if(launch_event==0 && launch_confirmed == false){
     //reset matrix and ground pressure
-    //ground_pressure = pressure;
+    ground_pressure = pressure;
     //Matrix.Copy((float*) IdentityM, 3, 3, (float*) R1); 
   }
 }

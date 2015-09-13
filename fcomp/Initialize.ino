@@ -26,11 +26,11 @@ void initialize() {
   accelgyro.setFullScaleAccelRange(3);
   
   // populate movavg_buff before starting loop
-  pressure = baro.getPressure(MS561101BA_OSR_4096);
-  /*while(pressure==NULL) {
+  //pressure = baro.getPressure(MS561101BA_OSR_4096);
+  while(pressure==NULL) {
     delay(10);
     pressure = baro.getPressure(MS561101BA_OSR_4096);      
-  }*/
+  }
   
   ground_pressure = pressure; //set pressure at ground level
   alt_const=(287/9.8)*(273+baro.getTemperature(MS561101BA_OSR_4096));
