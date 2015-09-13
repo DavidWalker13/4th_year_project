@@ -41,8 +41,12 @@ void initialize() {
   Serial.println(mag.testConnection() ? "HMC5883L connection successful" : "HMC5883L connection failed");
 
   gyro_calibration();
- 
+  pinMode(Buzzer_Pin, OUTPUT);
+  
   Serial.println("End setup");
+  digitalWrite(Buzzer_Pin, HIGH);   
+  delay(500);              
+  digitalWrite(Buzzer_Pin, LOW);    
 }
 
 void gyro_calibration(){

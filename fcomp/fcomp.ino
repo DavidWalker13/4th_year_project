@@ -10,6 +10,7 @@
 MPU6050 accelgyro;
 HMC5883L mag;
 MS561101BA baro;
+#define Buzzer_Pin 11
 
 //Variables
 float gxscale =3.1416/(180*32.8), gyscale = 3.1416/(180*32.8), gzscale = 3.1416/(180*32.8);
