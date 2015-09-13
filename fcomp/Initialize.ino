@@ -20,7 +20,7 @@ void initialize() {
   //gyro set up
   accelgyro.setRate(4);
   accelgyro.setDLPFMode(1);
-  accelgyro.setFullScaleGyroRange(2);
+  accelgyro.setFullScaleGyroRange(2); //2 = +/- 1000 degrees/sec
   
   //accel setup
   accelgyro.setFullScaleAccelRange(3);

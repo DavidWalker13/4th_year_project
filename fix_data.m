@@ -39,8 +39,8 @@ end
 
 wx_errors=0;
 for i=1:length(wx)
-    if all(isstrprop(wx(i), 'xdigit')) == false
-        wx(i)=0;
+    if all(isstrprop(wx{i}, 'xdigit')) == false
+        wx{i}=0;
     end
     wxd(i)=decodehex(wx{i});
     if isnan(wxd(i)) 
@@ -48,11 +48,12 @@ for i=1:length(wx)
         wx_errors=wx_errors+1;
     end
 end
+disp('finished wx');
 
 wy_errors=0;
 for i=1:length(wy)
-   if all(isstrprop(wy(i), 'xdigit')) == false
-        wy(i)=0;
+   if all(isstrprop(wy{i}, 'xdigit')) == false
+        wy{i}=0;
     end
     wyd(i)=decodehex(wy{i});
     if isnan(wyd(i)) 
@@ -60,11 +61,12 @@ for i=1:length(wy)
         wy_errors=wy_errors+1;
     end
 end
+disp('finished wy');
 
 wz_errors=0;
 for i=1:length(wz)
-    if all(isstrprop(wz(i), 'xdigit')) == false
-        wz(i)=0;
+    if all(isstrprop(wz{i}, 'xdigit')) == false
+        wz{i}=0;
     end
     wzd(i)=decodehex(wz{i});
     if isnan(wzd(i)) 
@@ -72,3 +74,5 @@ for i=1:length(wz)
         wz_errors=wz_errors+1;
     end
 end
+
+disp('finished wz');
