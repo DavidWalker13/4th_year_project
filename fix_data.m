@@ -18,6 +18,22 @@ for i=1:length(ay)
     end
 end
 
+ax_errors=0;
+for i=1:length(ax)
+    if ax(i) > 200 || ax(i) < -200 ||isnan(ax(i)) 
+        ax(i)= 0;
+        ax_errors=ax_errors+1;
+    end
+end
+
+az_errors=0;
+for i=1:length(az)
+    if az(i) > 200 || az(i) < -200 ||isnan(az(i)) 
+        az(i)= 0;
+        az_errors=az_errors+1;
+    end
+end
+
 
 pressure_errors=0;
 for i=1:length(pressure)

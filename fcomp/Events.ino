@@ -36,3 +36,10 @@ void event_detection(){
   }
 
 }
+
+void fire_pyro(){
+  digitalWrite(Pyro_Pin, HIGH);   
+  delay(1000);              
+  digitalWrite(Pyro_Pin, LOW);  
+}
+

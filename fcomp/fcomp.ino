@@ -11,6 +11,7 @@ MPU6050 accelgyro;
 HMC5883L mag;
 MS561101BA baro;
 #define Buzzer_Pin 11
+#define Pyro_Pin 5
 
 //Variables
 float gxscale =3.1416/(180*32.8), gyscale = 3.1416/(180*32.8), gzscale = 3.1416/(180*32.8);
@@ -46,6 +47,11 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   uint32_t loop_start = micros();
+
+  //pyro testing
+  delay(5000);
+  fire_pyro();
+  delay(5E9);
 
   IMU();
   //PID();

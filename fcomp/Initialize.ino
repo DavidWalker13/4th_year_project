@@ -42,6 +42,7 @@ void initialize() {
 
   gyro_calibration();
   pinMode(Buzzer_Pin, OUTPUT);
+  pinMode(Pyro_Pin, OUTPUT);
   
   Serial.println("End setup");
   digitalWrite(Buzzer_Pin, HIGH);   
