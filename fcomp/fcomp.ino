@@ -48,10 +48,6 @@ void loop() {
   // put your main code here, to run repeatedly:
   uint32_t loop_start = micros();
 
-  //pyro testing
-  delay(5000);
-  fire_pyro();
-  delay(5E9);
 
   IMU();
   //PID();

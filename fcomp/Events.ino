@@ -33,6 +33,7 @@ void event_detection(){
     main_deploy=true;
     Serial.print("Main deployed at: ");
     Serial.println(millis());
+    fire_pyro();
   }
 
 }
