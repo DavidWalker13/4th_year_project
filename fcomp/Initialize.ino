@@ -9,6 +9,16 @@ void initialize() {
   #endif
   
   Serial.begin(115200);
+
+  //attach servos
+  servo1.attach(6,900,2100);
+  servo2.attach(7,900,2100);
+  servo3.attach(8,900,2100);
+  servo4.attach(9,900,2100);
+  servo1.write(90);
+  servo2.write(90);
+  servo3.write(90);
+  servo4.write(90);
   
   // initialize device
   Serial.println("Initializing I2C devices...");

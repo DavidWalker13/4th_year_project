@@ -30,9 +30,7 @@ void read_sensors(){
     loop_no=1;
   }
   else loop_no++;
-
 }
-  
   
 void scale_values(){
 
@@ -49,7 +47,6 @@ void scale_values(){
   m[2]= mzscale*(mz-mzoff);
   */
   altitude = alt_const*2*(ground_pressure-pressure)/(ground_pressure+pressure);
- 
 }
 
 void update_matrix(){
