@@ -35,7 +35,7 @@ void print_mag(){
 void print_baro(){
   //Serial.print("baro:\t");
   //Serial.print(temp); Serial.print("\t");
-  Serial.print(pressure); Serial.print("\t");
+  Serial.print(pressure_reading); Serial.print("\t");
   //Serial.print(altitude); Serial.print("\t");
   //Serial.print(vert_vel); Serial.print("\t");
 }

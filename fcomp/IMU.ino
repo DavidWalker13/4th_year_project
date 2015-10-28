@@ -1,9 +1,7 @@
 float R1[3][3] = { {1,0,0}, {0,1,0}, {0,0,1} }; ////rotation matrix 1
 const float IdentityM[3][3] = { {1,0,0}, {0,1,0}, {0,0,1} }; //identity matrix
 float R2[3][3]; //rotation matrix 2
-float previous_pressure_reading=0, previous_pressure=0;
 uint8_t loop_no=1;
-
 
 void IMU() {
   read_sensors();
@@ -21,12 +19,13 @@ void read_sensors(){
   accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
  // mag.getHeading(&mx, &my, &mz);  
   //get pressure 
-  float pressure_reading = baro.getPressure(MS561101BA_OSR_4096);
-  if(pressure_reading != previous_pressure_reading){
-    pressure=0*pressure+1*pressure_reading; //low pass filter on pressure
+  pressure_reading = baro.getPressure(MS561101BA_OSR_4096);
+  if(pressure_reading != previous_pressure_reading){ 
+    pushAvg(pressure_reading); //push to moving average
+    pressure=getAvg(movavg_buff, MOVAVG_SIZE); //get average pressure
+    vert_vel= alt_const*(previous_pressure-pressure)/(pressure*time_for_loop*loop_no*1E-6);
+    previous_pressure = pressure;
     previous_pressure_reading=pressure_reading;
-    vert_vel= 0.8*vert_vel + 0.2*alt_const*(previous_pressure-pressure)/(pressure*time_for_loop*loop_no*1E-6);
-    previous_pressure=pressure;
     loop_no=1;
   }
   else loop_no++;
@@ -67,5 +66,19 @@ void update_matrix(){
   Matrix.Copy((float*) R2, 3, 3, (float*) R1); // R1 = R2
   //Renormalization of R
   Matrix.NormalizeTay3x3((float*)R1); //remove errors so dot product doesn't go complex
+}
+
+//functions for dealing with the pressure moving average
+void pushAvg(float val) {
+  movavg_buff[movavg_i] = val;
+  movavg_i = (movavg_i + 1) % MOVAVG_SIZE;
+}
+
+float getAvg(float * buff, int size) {
+  float sum = 0.0;
+  for(int i=0; i<size; i++) {
+    sum += buff[i];
+  }
+  return sum / size;
 }
 
