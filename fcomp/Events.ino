@@ -29,7 +29,7 @@ void event_detection(){
   }
 
   //deploy main
-  if(apogee == true && (ground_pressure-pressure)*alt_const/ground_pressure < 100){
+  if(apogee == true && (ground_pressure-pressure)*alt_const/ground_pressure < Main_Deployment_Alt){
     main_deploy=true;
     Serial.print("Main deployed at: ");
     Serial.println(millis());

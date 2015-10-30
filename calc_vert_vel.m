@@ -1,19 +1,24 @@
-previous_pressure=pressure(1);
+previous_pressure=Pressure(1);
 loop_no=1;
-vert_vel=zeros(length(pressure),1);
-pressure2=pressure(1);
-previous_pressure2=pressure2;
+vert_vel=zeros(length(Pressure),1);
+a=0.1;
+beta=0.0;
+b=0;
+pressure_f=Pressure(1);
+previous_pressure_f=pressure_f;
+c=1;
 
-for i=2:length(pressure)
-    if(pressure(i) ~= previous_pressure && pressure(i)>=100)
-        pressure2=0.5*pressure2+0.5*pressure(i); %^low pass filter on pressure
-        vert_vel(i)= 0.8*vert_vel(i-1) + 0.2*alt_const*(previous_pressure2-pressure2)/(pressure2*looptime(i)*loop_no*1E-6);
+for i=2:length(Pressure)
+    if(Pressure(i) ~= previous_pressure && Pressure(i)>=100)
+        pressure_f=(1-c)*previous_pressure_f+c*Pressure(i);
+        vert_vel(i)= (1-a)*(vert_vel(i-1)+b) + a*(previous_pressure_f-pressure_f)*alt_const/(Pressure(i)*looptime(i)*loop_no*1E-6);
+        b=beta*(vert_vel(i)-vert_vel(i-1))+(1-beta)*b;
         if abs(vert_vel(i)) >1000
             disp(i);
             vert_vel(i)=vert_vel(i-1);
         end
-        previous_pressure=pressure(i);
-        previous_pressure2=pressure2;
+        previous_pressure=Pressure(i);
+        previous_pressure_f=pressure_f;
         loop_no=1;  
     else
         vert_vel(i)=vert_vel(i-1);
@@ -21,6 +26,4 @@ for i=2:length(pressure)
     end
 end
 
-plot(time,vert_vel)
-
-        
+plot(Time,vert_vel,'b')

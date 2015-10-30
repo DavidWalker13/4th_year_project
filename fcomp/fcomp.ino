@@ -13,7 +13,7 @@ HMC5883L mag;
 MS561101BA baro;
 #define Buzzer_Pin 12
 #define Pyro_Pin 2
-#define MOVAVG_SIZE 5
+#define Main_Deployment_Alt 250
 
 //Variables
 float gxscale =3.1416/(180*32.8), gyscale = 3.1416/(180*32.8), gzscale = 3.1416/(180*32.8);
@@ -33,7 +33,7 @@ uint32_t time_for_loop=5000; //time for a loop
 
 //Baro stuff
 float pressure=1000, pressure_reading, previous_pressure=0, previous_pressure_reading=0, ground_pressure, alt_const, altitude;
-float movavg_buff[MOVAVG_SIZE], vert_vel=0;
+float vert_vel=0;
 int movavg_i=0;
 
 //events
