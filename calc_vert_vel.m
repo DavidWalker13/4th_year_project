@@ -26,4 +26,4 @@ for i=2:length(Pressure)
     end
 end
 
-plot(Time,vert_vel,'b')
+plot(time_s,vert_vel,'b')

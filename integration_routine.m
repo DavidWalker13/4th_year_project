@@ -3,7 +3,7 @@ close all
 
 R1 = eye(3); %rotation matrix 1
 
-for i=106980:110000     
+for i=1:4917     
   % update matrix
   time_for_loop_s=looptime(i)*1E-6;
   delta_theta(1)=wxd(i)*time_for_loop_s;

@@ -5,7 +5,8 @@ void event_detection(){
   if( (fabs(a[0])+fabs(a[1])+fabs(a[2])) > 40 && launch_confirmed == false){
     launch_event = launch_event | 1; //set right most bit to 1 
     if( launch_event == 1 ) {
-       Serial.println("Launch event detected"); 
+       Serial.println("Launch event detected at: ");
+       Serial.println(millis()); 
     }
   }
   //Serial.println(launch_event, BIN);
@@ -14,7 +15,8 @@ void event_detection(){
   //confirm launch if change in height is >launch_detect_altitude since launch event
   if(launch_event > 0 && (ground_pressure-pressure)*alt_const/ground_pressure > launch_detect_altitude){
     launch_confirmed = true;
-    Serial.println("Launch confirmed");
+    Serial.println("Launch confirmed at: ");
+    Serial.println(millis());
   }
   if(launch_event >= 0x8000000000000000 && launch_confirmed == false){ //if the left most digit of launch event is a 1 
     Serial.print("False launch detected at time: ");

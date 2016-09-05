@@ -10,8 +10,9 @@
 clear all
 
 %% Initialize variables.
-%filename = 'D:\LOG00097.TXT';
-filename = 'C:\Users\Think\Documents\serial_test.txt';
+%filename = 'E:\University\4th Year Project\DATA\06_03_16_short.TXT';
+filename = 'E:\University\4th Year Project\Markham\LOG00264.TXT';
+%filename = 'C:\Users\Think\Documents\serial_test.txt';
 delimiter = {'\t',','};
 startRow = 5;
 
@@ -88,7 +89,7 @@ az = cell2mat(rawNumericColumns(:, 3));
 wx = rawCellColumns(:, 1);
 wy = rawCellColumns(:, 2);
 wz = rawCellColumns(:, 3);
-press = cell2mat(rawNumericColumns(:, 4));
+pressure = cell2mat(rawNumericColumns(:, 4));
 looptime = cell2mat(rawNumericColumns(:, 5));
 
 
